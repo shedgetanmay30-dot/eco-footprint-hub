@@ -9,14 +9,34 @@ dotenv.config();
 
 const app = express();
 
+// ============================================
+// CORS CONFIGURATION
+// ============================================
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://eco-footprint-hub.vercel.app"
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true
+  })
+);
 
 // ============================================
 // MIDDLEWARE
 // ============================================
 
-app.use(cors());
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
 
 // ============================================
 // IMPORT ROUTES
@@ -32,7 +52,6 @@ const tipRoutes = require("./routes/tipRoutes");
 const recommendationRoutes = require("./routes/recommendationRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const badgeRoutes = require("./routes/badgeroutes");
-
 
 // ============================================
 // TEST ROUTES
@@ -54,7 +73,6 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-
 // ============================================
 // API ROUTES
 // ============================================
@@ -70,7 +88,6 @@ app.use("/api/recommendations", recommendationRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/badges", badgeRoutes);
 
-
 // ============================================
 // ERROR HANDLING
 // ============================================
@@ -83,7 +100,6 @@ const {
 app.use(notFound);
 app.use(errorHandler);
 
-
 // ============================================
 // START SERVER AFTER DATABASE CONNECTION
 // ============================================
@@ -94,13 +110,13 @@ const startServer = async () => {
   try {
     await connectDB();
 
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log("----------------------------------");
-      console.log("🌱 ECO FOOTPRINT HUB SERVER");
+      console.log("ECO FOOTPRINT HUB SERVER");
       console.log("----------------------------------");
       console.log(`Server running on port ${PORT}`);
-      console.log(`API: http://localhost:${PORT}`);
-      console.log(`Health: http://localhost:${PORT}/api/health`);
+      console.log("Vercel frontend: https://eco-footprint-hub.vercel.app");
+      console.log("Health: /api/health");
       console.log("----------------------------------");
     });
 
