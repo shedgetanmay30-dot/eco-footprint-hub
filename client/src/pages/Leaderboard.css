@@ -1,0 +1,608 @@
+
+/* =====================================
+   LEADERBOARD PAGE
+===================================== */
+
+.leaderboard-container {
+  min-height: 100vh;
+  padding: 35px;
+  background:
+    radial-gradient(circle at top right, rgba(34, 197, 94, 0.08), transparent 450px),
+    #0d1512;
+  color: #e5f5e9;
+  font-family: Arial, sans-serif;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+
+.leaderboard-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 35px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #294b37;
+}
+
+.leaderboard-tag {
+  display: inline-block;
+  background: #14532d;
+  color: #bbf7d0;
+  padding: 7px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.leaderboard-header h1 {
+  color: #86efac;
+  font-size: 36px;
+  margin: 0;
+}
+
+.leaderboard-header p {
+  color: #9cae9f;
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0;
+}
+
+.leaderboard-refresh {
+  background: #16a34a;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.leaderboard-refresh:hover {
+  background: #15803d;
+  transform: translateY(-2px);
+}
+
+.leaderboard-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.leaderboard-error {
+  color: #fca5a5 !important;
+}
+
+/* =====================================
+   OVERVIEW STATISTICS
+===================================== */
+
+.leaderboard-overview {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.overview-card {
+  background: linear-gradient(145deg, #1d3928, #14251c);
+  border: 1px solid #315c40;
+  border-radius: 14px;
+  padding: 22px;
+  transition: 0.3s;
+}
+
+.overview-card:hover {
+  transform: translateY(-4px);
+  border-color: #86efac;
+}
+
+.overview-card span {
+  font-size: 27px;
+}
+
+.overview-card h3 {
+  color: #86efac;
+  font-size: 27px;
+  margin: 12px 0 5px;
+  overflow-wrap: anywhere;
+}
+
+.overview-card p {
+  color: #aebfb3;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* =====================================
+   CURRENT USER RANK
+===================================== */
+
+.current-user-rank {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 25px;
+  margin-bottom: 40px;
+  background: linear-gradient(100deg, #14532d, #1d3928);
+  border: 1px solid #4ade80;
+  border-radius: 14px;
+}
+
+.current-user-rank > div {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.current-rank-icon {
+  font-size: 35px;
+}
+
+.current-user-rank h3 {
+  color: #f0fdf4;
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.current-user-rank p {
+  color: #bbf7d0;
+  margin: 0;
+  font-size: 13px;
+}
+
+.current-user-rank > strong {
+  color: #facc15;
+  font-size: 30px;
+  white-space: nowrap;
+}
+
+/* =====================================
+   SECTION TITLES
+===================================== */
+
+.leaderboard-section-title {
+  color: #d1fae5;
+  font-size: 25px;
+  margin: 35px 0 20px;
+}
+
+/* =====================================
+   TOP CHAMPIONS
+===================================== */
+
+.top-champions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+  margin: 25px 0 45px;
+}
+
+.champion-card {
+  position: relative;
+  background: linear-gradient(145deg, #1d3928, #14251c);
+  border: 1px solid #315c40;
+  border-radius: 18px;
+  padding: 25px 18px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.champion-card:hover {
+  transform: translateY(-5px);
+  border-color: #86efac;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.champion-1 {
+  border: 2px solid #d6a83d;
+}
+
+.champion-2 {
+  border-color: #94a3b8;
+}
+
+.champion-3 {
+  border-color: #b87333;
+}
+
+.champion-medal {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.champion-avatar {
+  width: 75px;
+  height: 75px;
+  margin: 0 auto 15px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #245b38;
+  border: 2px solid #4ade80;
+  color: #d1fae5;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.champion-card h3 {
+  color: #f0fdf4;
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+
+.champion-rank {
+  display: inline-block;
+  color: #86efac;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* CHAMPION STATS */
+
+.champion-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.champion-stats div {
+  background: rgba(0, 0, 0, 0.18);
+  padding: 14px 8px;
+  border-radius: 10px;
+}
+
+.champion-stats strong {
+  display: block;
+  color: #facc15;
+  font-size: 23px;
+  margin-bottom: 5px;
+}
+
+.champion-stats span {
+  color: #aebfb3;
+  font-size: 12px;
+}
+
+/* EXTRA CHAMPION INFORMATION */
+
+.champion-extra-stats {
+  border-top: 1px solid #315c40;
+  padding-top: 12px;
+}
+
+.champion-extra-stats p {
+  color: #aebfb3;
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+/* =====================================
+   TABLE SECTION
+===================================== */
+
+.leaderboard-table-section {
+  margin-top: 40px;
+}
+
+.leaderboard-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.leaderboard-table-header h2 {
+  color: #d1fae5;
+  font-size: 24px;
+  margin: 0 0 8px;
+}
+
+.leaderboard-table-header p {
+  color: #9cae9f;
+  margin: 0;
+  font-size: 14px;
+}
+
+.leaderboard-count {
+  background: #14532d;
+  color: #bbf7d0;
+  padding: 9px 15px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.leaderboard-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: #17251e;
+  border: 1px solid #294b37;
+  border-radius: 14px;
+}
+
+.leaderboard-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th {
+  background: #14532d;
+  color: white;
+  text-align: left;
+  padding: 17px 15px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.leaderboard-table td {
+  padding: 16px 15px;
+  border-bottom: 1px solid #294b37;
+  color: #d1dcd4;
+  font-size: 14px;
+}
+
+.leaderboard-table tbody tr {
+  transition: 0.2s;
+}
+
+.leaderboard-table tbody tr:hover {
+  background: #203629;
+}
+
+.leaderboard-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.top-rank-row {
+  background: rgba(34, 197, 94, 0.05);
+}
+
+/* =====================================
+   RANK
+===================================== */
+
+.rank-badge {
+  color: #86efac;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+/* =====================================
+   USER NAME AND AVATAR
+===================================== */
+
+.leaderboard-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.leaderboard-avatar {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #245b38;
+  color: #bbf7d0;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.leaderboard-user strong {
+  color: #f0fdf4;
+}
+
+/* =====================================
+   POINTS AND SCORE
+===================================== */
+
+.points-value {
+  color: #facc15;
+  font-weight: 800;
+}
+
+.score-value {
+  color: #86efac;
+  font-weight: 700;
+}
+
+/* =====================================
+   STATUS
+===================================== */
+
+.eco-status {
+  display: inline-block;
+  padding: 6px 11px;
+  background: #14532d;
+  color: #bbf7d0;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* =====================================
+   EMPTY STATE
+===================================== */
+
+.leaderboard-empty {
+  background: #17251e;
+  border: 1px dashed #3b6248;
+  padding: 40px 20px;
+  border-radius: 15px;
+  text-align: center;
+  color: #aebfb3;
+}
+
+/* =====================================
+   LOADING AND ERROR
+===================================== */
+
+.leaderboard-loading {
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+}
+
+.leaderboard-loading h2 {
+  color: #86efac;
+}
+
+.leaderboard-loading p {
+  color: #9cae9f;
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+
+.leaderboard-footer {
+  margin-top: 45px;
+  padding: 30px 20px;
+  text-align: center;
+  background: linear-gradient(145deg, #1d3928, #14251c);
+  border: 1px solid #315c40;
+  border-radius: 15px;
+}
+
+.leaderboard-footer h2 {
+  color: #86efac;
+  margin: 0 0 10px;
+}
+
+.leaderboard-footer p {
+  color: #aebfb3;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* =====================================
+   RESPONSIVE TABLET
+===================================== */
+
+@media (max-width: 1000px) {
+  .leaderboard-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .top-champions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .champion-1 {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =====================================
+   RESPONSIVE MOBILE
+===================================== */
+
+@media (max-width: 600px) {
+  .leaderboard-container {
+    padding: 20px 14px;
+  }
+
+  .leaderboard-header h1 {
+    font-size: 27px;
+  }
+
+  .leaderboard-header p {
+    font-size: 14px;
+  }
+
+  .leaderboard-overview {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .overview-card {
+    padding: 15px;
+  }
+
+  .overview-card h3 {
+    font-size: 22px;
+  }
+
+  .overview-card p {
+    font-size: 11px;
+  }
+
+  .current-user-rank {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .current-user-rank h3 {
+    font-size: 15px;
+  }
+
+  .current-user-rank p {
+    font-size: 11px;
+  }
+
+  .current-user-rank > strong {
+    font-size: 23px;
+  }
+
+  .current-rank-icon {
+    font-size: 26px;
+  }
+
+  .top-champions {
+    grid-template-columns: 1fr;
+  }
+
+  .champion-1 {
+    grid-column: auto;
+  }
+
+  .leaderboard-section-title {
+    font-size: 21px;
+  }
+
+  .leaderboard-table-header h2 {
+    font-size: 21px;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .leaderboard-footer {
+    padding: 24px 15px;
+  }
+
+  .leaderboard-footer h2 {
+    font-size: 19px;
+  }
+
+  .leaderboard-footer p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .leaderboard-overview {
+    grid-template-columns: 1fr;
+  }
+}
