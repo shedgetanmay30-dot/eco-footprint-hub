@@ -3,14 +3,15 @@ import axios from "axios";
 
 // ============================================
 // API CONFIGURATION
+// Both local and deployed websites use
+// the same Render backend and Atlas database.
 // ============================================
 
 const API = axios.create({
   baseURL: "https://eco-footprint-hub-2.onrender.com/api",
   headers: {
     "Content-Type": "application/json"
-  },
-  withCredentials: true
+  }
 });
 
 // ============================================
@@ -22,6 +23,7 @@ API.interceptors.request.use(
     const token = localStorage.getItem("token");
 
     if (token) {
+      config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${token}`;
     }
 
@@ -37,9 +39,7 @@ API.interceptors.request.use(
 // ============================================
 
 API.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
     console.error(
       "API Error:",
