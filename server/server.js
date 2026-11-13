@@ -15,6 +15,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
+  "http://localhost:5174",
   "https://eco-footprint-hub.vercel.app"
 ];
 
@@ -25,6 +26,7 @@ app.use(
         return callback(null, true);
       }
 
+      console.log("Blocked by CORS:", origin);
       return callback(new Error("Not allowed by CORS"));
     },
     credentials: true
@@ -116,6 +118,7 @@ const startServer = async () => {
       console.log("----------------------------------");
       console.log(`Server running on port ${PORT}`);
       console.log("Vercel frontend: https://eco-footprint-hub.vercel.app");
+      console.log("Local frontend: http://localhost:5174");
       console.log("Health: /api/health");
       console.log("----------------------------------");
     });
