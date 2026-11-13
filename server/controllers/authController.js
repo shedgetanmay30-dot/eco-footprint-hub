@@ -20,7 +20,11 @@ exports.registerUser = async (req, res, next) => {
     }
 
     // Validate name
-    if (name.trim().length < 2 || name.trim().length > 50) {
+    if (
+      typeof name !== "string" ||
+      name.trim().length < 2 ||
+      name.trim().length > 50
+    ) {
       return res.status(400).json({
         success: false,
         message: "Name must contain between 2 and 50 characters"
@@ -28,6 +32,13 @@ exports.registerUser = async (req, res, next) => {
     }
 
     // Validate email
+    if (typeof email !== "string") {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid email address"
+      });
+    }
+
     const normalizedEmail = email.trim().toLowerCase();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,7 +51,7 @@ exports.registerUser = async (req, res, next) => {
     }
 
     // Validate password
-    if (password.length < 8) {
+    if (typeof password !== "string" || password.length < 8) {
       return res.status(400).json({
         success: false,
         message: "Password must contain at least 8 characters"
@@ -112,7 +123,7 @@ exports.loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    // Validate fields
+    // Validate required fields
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -120,15 +131,22 @@ exports.loginUser = async (req, res, next) => {
       });
     }
 
+    if (typeof email !== "string" || typeof password !== "string") {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid login details"
+      });
+    }
+
+    // Normalize email
     const normalizedEmail = email.trim().toLowerCase();
 
-    // IMPORTANT: Explicitly select password because User.js
-    // has select: false for the password field.
+    // Find user and explicitly retrieve password
     const user = await User.findOne({
       email: normalizedEmail
     }).select("+password");
 
-    // Check user
+    // Check whether user exists
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -136,7 +154,17 @@ exports.loginUser = async (req, res, next) => {
       });
     }
 
-    // Compare password
+    // Check whether password exists
+    if (!user.password) {
+      console.error("User password is missing from database");
+
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password"
+      });
+    }
+
+    // Compare entered password with stored hash
     const isMatch = await bcrypt.compare(
       password,
       user.password

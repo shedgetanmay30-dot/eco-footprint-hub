@@ -1,11 +1,22 @@
 
 import axios from "axios";
 
+// ============================================
+// API CONFIGURATION
+// ============================================
+
 const API = axios.create({
-  baseURL: "https://eco-footprint-hub-2.onrender.com/api"
+  baseURL: "https://eco-footprint-hub-2.onrender.com/api",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  withCredentials: true
 });
 
-// Automatically attach login token to every request
+// ============================================
+// AUTOMATICALLY ATTACH LOGIN TOKEN
+// ============================================
+
 API.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -20,5 +31,27 @@ API.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+// ============================================
+// HANDLE API RESPONSES
+// ============================================
+
+API.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    console.error(
+      "API Error:",
+      error.response?.data?.message || error.message
+    );
+
+    return Promise.reject(error);
+  }
+);
+
+// ============================================
+// EXPORT API
+// ============================================
 
 export default API;
