@@ -94,10 +94,10 @@ userSchema.index({
   role: 1
 });
 
-// Email is already indexed by unique: true
+// Email is automatically indexed by unique: true
 
 // =====================================
-// PREVENT OVERWRITE MODEL ERROR
+// PREVENT MODEL OVERWRITE ERROR
 // =====================================
 
 const User =
